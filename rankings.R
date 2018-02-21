@@ -10,6 +10,11 @@ library(stringr)
 #also add mlb pipeline, but weigh it less
 #second tier: mlb, razzball, katoh
 
+#Notes:
+#"fv" is "future value" via fangraphs. A 50 is considered average. Every 10 above and below is considered one standard
+  #deviation above or below average. 80 is considered the highest, and 20 is the lowest.
+#"variance" is another fangraphs measurement of the likelihood of possible outcomes around the fv.
+
 #baseball america
 url <- read_html('https://www.baseballamerica.com/minors/top-100-mlb-prospects-2018/')
 
@@ -163,112 +168,12 @@ df_new <- df_new %>%
 df_new1 <- df_new %>%
   select(mean_rank = rank, name, position, age, team, fv, variance, bba_rank, bbp_rank, fg_rank)
 
-#TO DO
+#TO DO:
 #organize by position
 
 #FIX BBP VLAD GUERR! ITS COMING UP AS UNIQUE TO THE OTHER SPELLING
 #also change Jordon to Jo Adell in bbp
 
-write.csv(df_new1, "C:/Users/Ben/Desktop/R Projects/baseball_prospects_2018.csv")
-# df <- df %>%
-#   mutate(rank = rowMeans(c(bba_rank, bbp_rank, fg_rank), na.rm = TRUE))
-
-# df_rank <- df %>%
-#   select(bba_rank, bbp_rank, fg_rank) %>%
-#   mutate(rank = rowsum(bba_rank, bbp_rank, fg_rank, na.rm = TRUE))
-#
-# #clean the one comma'd name
-# copy$bbp <- ifelse(copy$bbp == "Fernando Tatis, Jr., SS, San Diego Padres",
-#                    "Fernando Tatis Jr., SS, San Diego Padres",
-#                    copy$bbp)
-# #separate into name, pos, city_team or c(city, team)
-# copy1 <- copy %>%
-#   separate(bbp, c("name", "position", "city_team"), "\\,")
-# 
-# #trim leading and trailing white space
-# copy1$city_team <- str_trim(copy1$city_team)
-# copy1$position <- str_trim(copy1$position)
-# 
-# #remove periods from names
-# copy1$name <- str_replace_all(copy1$name, "\\.", "")
-# #add rank by row number
-# copy1$bbp_rank <- 1
-# 
-# for(i in 1:nrow(copy1)) {
-#   copy1$bbp_rank[i] <- i
-# }
-# 
-# temp <- copy %>%
-#         separate(bba, c("name", "position", "team"), "\\|")
-# # temptwo <- temp %>%
-# #         separate(team, c("teamname", "extra"), "\\ ")
-# temptwo <- temp %>%
-#   separate(team, c("blank", "team", "extra"), "\\ ") %>%
-#   select(-blank, -extra)
-# # temptwo <- temp %>%
-# #   separate(team, c("teamname1", "extra"), "\\<f0>", extra = "merge")
-# # temptwo <- temp %>%
-# #         separate(team, c("teamname1", "teamname2", "extra"), "\\ ")
-# 
-# tempthree <- temptwo %>%
-#   separate(name, c("bba_rank", "name"), "\\.", extra = "merge")
-# 
-# # tempthree[,2] <- str_trim(tempthree[,2])
-# #trim leading and trailing white space
-# tempthree$name <- str_trim(tempthree$name)
-# tempthree$position <- str_trim(tempthree$position)
-# #change team names where nec.
-# tempthree$team <- ifelse(tempthree$team == "Blue", "Blue Jays", tempthree$team)
-# tempthree$team <- ifelse(tempthree$team == "D'backs", "Diamondbacks", tempthree$team)
-# tempthree$team <- ifelse(tempthree$team == "Red", "Red Sox", tempthree$team)
-# tempthree$team <- ifelse(tempthree$team == "White", "White Sox", tempthree$team)
-# #
-# new <- str_split(copy[1:10,], fixed("<"), n = 2, simplify = TRUE)
-# new <- 
-# #
-# new_copy <- lapply(split_copy, cbind)
-# new_copy <- as.data.frame(new_copy)
-# #
-# copy <- as.matrix(bba, nrow = 100, ncol = 1)
-# copy <- as.list(copy)
-# 
-# split_copy <- str_split(copy, pattern = "<")
-# new_copy <- lapply(split_copy, cbind)
-# new_copy <- t(as.data.frame(new_copy))
-# #
-# new <- matrix()
-# for(i in 1:100) {
-#   new[i,] <- str_split[copy[i,], "<", simplify = TRUE]
-# }
-# #new_bba <- matrix(, nrow = 100, ncol = 2)
-# new_bba <- str_split(copy[,1], pattern = "<", n = 2, simplify = TRUE)
-# #
-# copy <- str_split(copy, pattern = "<")
-# copy <- str_split(copy, pattern = ">")
-# copy <- as.data.frame(copy)
-# # copy <- as.data.frame(str_split(copy, pattern = "<"))
-# # filter(copy, contains("U+"))
-# copy %>%
-#   filter(contains(as.character(copy), 'U+'))
-# copy1 <- copy[contains("U+")]
-# # copy <- as.data.frame(str_split(copy, pattern = ">"))
-# 
-# #empty_bba <- matrix(, nrow = 100, ncol = 2)
-# for(i in 1:nrow(copy)) {
-#   empty_bba[[i]] <- str_split(copy[i], "<", n = 2)
-#   
-# }
-# 
-# copy[1,] <- str_split(copy[1,], "<")
-# #
-# copy1 <- str_split(copy, pattern = "<", n = 2, simplify = TRUE)
-# copy1 <- as.data.frame(copy)
-# str_subset(copy[,1], "Kyle Tucker")
-# str_sub(copy[,1], start = "<", end = -1) <- ""
-# 
-# symbols <- "<"
-
-# copy[,1] <- str_sub(copy[,1], start="<", end=">")
-# copy[,1] <- gsub("\\<*","",copy[,1])
-#add wander franco at some point
+#write for local file
+#write.csv(df_new1, "C:/Users/Ben/Desktop/R Projects/baseball_prospects_2018.csv")
 
